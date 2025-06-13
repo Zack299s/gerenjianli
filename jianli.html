@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人简历</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#4080FF',
+            accent: '#0E42D2',
+            dark: '#1D2129',
+            light: '#F2F3F5',
+            muted: '#86909C'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .section-padding {
+        @apply py-8 md:py-12;
+      }
+      .section-title {
+        @apply text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-6 relative inline-block;
+      }
+      .section-title::after {
+        content: '';
+        @apply absolute bottom-0 left-0 w-1/2 h-1 bg-primary rounded-full;
+      }
+    }
+  </style>
+</head>
+<body class="font-inter bg-light text-dark antialiased">
+  <!-- 导航栏 -->
+  <nav id="navbar" class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="text-primary font-bold text-xl">个人简历</a>
+      <div class="hidden md:flex space-x-8">
+        <a href="#about" class="text-dark hover:text-primary transition-colors">关于我</a>
+        <a href="#skills" class="text-dark hover:text-primary transition-colors">技能</a>
+        <a href="#experience" class="text-dark hover:text-primary transition-colors">项目经验</a>
+        <a href="#education" class="text-dark hover:text-primary transition-colors">教育背景</a>
+        <a href="#contact" class="text-dark hover:text-primary transition-colors">联系方式</a>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden text-dark focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="#about" class="text-dark hover:text-primary transition-colors py-2">关于我</a>
+        <a href="#skills" class="text-dark hover:text-primary transition-colors py-2">技能</a>
+        <a href="#experience" class="text-dark hover:text-primary transition-colors py-2">项目经验</a>
+        <a href="#education" class="text-dark hover:text-primary transition-colors py-2">教育背景</a>
+        <a href="#contact" class="text-dark hover:text-primary transition-colors py-2">联系方式</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 英雄区域 -->
+  <header class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/90 to-accent/90 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10 text-white text-center">
+      <div class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/20 shadow-lg">
+        <img src="张忠洋证件照.jpg" alt="个人照片" class="w-full h-full object-cover">
+      </div>
+      <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-2 text-shadow">张忠洋</h1>
+      <p class="text-[clamp(1rem,2vw,1.5rem)] mb-6 text-white/90">区块链工程师</p>
+      <div class="flex justify-center space-x-4 mb-8">
+        <a href="#contact" class="px-6 py-3 bg-white text-primary font-medium rounded-full hover:bg-light transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
+          联系我
+        </a>
+        <a href="#resume" class="px-6 py-3 bg-transparent border-2 border-white text-white font-medium rounded-full hover:bg-white/10 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
+          下载简历
+        </a>
+      </div>
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="text-white hover:text-light transition-colors text-2xl">
+          <i class="fa fa-github"></i>
+        </a>
+        <a href="#" class="text-white hover:text-light transition-colors text-2xl">
+          <i class="fa fa-linkedin"></i>
+        </a>
+        <a href="#" class="text-white hover:text-light transition-colors text-2xl">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="#" class="text-white hover:text-light transition-colors text-2xl">
+          <i class="fa fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <a href="#about" class="text-white/80 hover:text-white transition-colors">
+        <i class="fa fa-chevron-down text-2xl"></i>
+      </a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4">
+    <!-- 关于我 -->
+    <section id="about" class="section-padding">
+      <h2 class="section-title">关于我</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="md:col-span-2">
+          <p class="text-lg leading-relaxed mb-4">
+            我是一名充满激情的区块链，我具备扎实的区块链理论基础和丰富的项目实践经验，能够熟练运用多种区块链技术框架进行项目开发。具有较强的学习能力和创新意识，
+            能够快速掌握新的技术和知识，解决项目中遇到的各种技术难题。具备良好的团队协作精神和沟通能力，能够与团队成员密切合作，共同完成项目目标。
+          </p>
+          <p class="text-lg leading-relaxed mb-4">
+            我精通精通Java、Python 等，熟练掌握C++、Go 等计算机语言，能够使用智能合约编程语言，开发智能合约。
+          </p>
+          <p class="text-lg leading-relaxed">
+            除了技术能力，我还具备良好的团队协作精神和沟通能力，能够与不同背景的团队成员有效合作。我不断学习和探索新的技术，以保持在快速发展的前端领域的竞争力。
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <h3 class="text-xl font-bold mb-4 text-primary">基本信息</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center">
+              <i class="fa fa-user-circle text-primary mr-3"></i>
+              <span>张忠洋</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-birthday-cake text-primary mr-3"></i>
+              <span>2004年12月6日</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone text-primary mr-3"></i>
+              <span>18187863450</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-envelope text-primary mr-3"></i>
+              <span>zzy1344001029@gmail.com</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-map-marker text-primary mr-3"></i>
+              <span>三亚市吉阳区</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-graduation-cap text-primary mr-3"></i>
+              <span>区块链工程</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-car text-primary mr-3"></i>
+              <span>驾照 C1</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills" class="section-padding bg-white/70">
+      <h2 class="section-title">专业技能</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-primary">开发</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">python</span>
+                <span>95%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">JavaScript</span>
+                <span>90%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">go</span>
+                <span>85%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">C++<span\>
+                <span>75%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">web前端</span>
+                <span>90%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-primary">其他技能</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">Webpack/Vite</span>
+                <span>80%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">Git</span>
+                <span>85%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">Node.js</span>
+                <span>70%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">数据库基础</span>
+                <span>65%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 65%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-medium">UI/UX设计基础</span>
+                <span>75%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12">
+        <h3 class="text-xl font-bold mb-6 text-primary">技术栈</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-html5 text-[clamp(2rem,4vw,3rem)] text-[#E44D26] mb-2"></i>
+            <h4 class="font-medium">HTML5</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-css3 text-[clamp(2rem,4vw,3rem)] text-[#1572B6] mb-2"></i>
+            <h4 class="font-medium">CSS3</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-code text-[clamp(2rem,4vw,3rem)] text-[#F7DF1E] mb-2"></i>
+            <h4 class="font-medium">JavaScript</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-cubes text-[clamp(2rem,4vw,3rem)] text-[#4FC08D] mb-2"></i>
+            <h4 class="font-medium">Vue.js</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-cube text-[clamp(2rem,4vw,3rem)] text-[#61DAFB] mb-2"></i>
+            <h4 class="font-medium">React</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-database text-[clamp(2rem,4vw,3rem)] text-[#336791] mb-2"></i>
+            <h4 class="font-medium">MySQL</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-git text-[clamp(2rem,4vw,3rem)] text-[#F05032] mb-2"></i>
+            <h4 class="font-medium">Git</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-sitemap text-[clamp(2rem,4vw,3rem)] text-[#8DD6F9] mb-2"></i>
+            <h4 class="font-medium">Webpack</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-mobile text-[clamp(2rem,4vw,3rem)] text-[#4285F4] mb-2"></i>
+            <h4 class="font-medium">响应式</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-paint-brush text-[clamp(2rem,4vw,3rem)] text-[#FF9A00] mb-2"></i>
+            <h4 class="font-medium">UI设计</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-server text-[clamp(2rem,4vw,3rem)] text-[#339933] mb-2"></i>
+            <h4 class="font-medium">Node.js</h4>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 text-center card-hover">
+            <i class="fa fa-file-code-o text-[clamp(2rem,4vw,3rem)] text-[#614BC3] mb-2"></i>
+            <h4 class="font-medium">TypeScript</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 项目经验 -->
+    <section id="experience" class="section-padding">
+      <h2 class="section-title">项目经验</h2>
+      
+      <div class="space-y-8">
+        <!-- 项目1 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-1/3 bg-gray-100 p-6 flex items-center justify-center">
+              <img src="https://picsum.photos/600/400?random=2" alt="电商平台项目截图" class="w-full h-auto rounded-lg shadow-sm">
+            </div>
+            <div class="md:w-2/3 p-6">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-primary">区块链供应链金融平台</h3>
+                  <p class="text-muted">2024年3月 - 2024年9月</p>
+                </div>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Vue.js</span>
+              </div>
+              <p class="mb-4">面向中小企业供应链金融场景，搭建区块链平台，实现资产穿透式管理、智能合约自动化清算。</p>
+              <ul class="mb-4 space-y-2">
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>基于 Hyperledger Fabric 构建联盟链网络，对接核心企业、多级供应商、金融机构节点，保障数据可信共享</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>开发智能合约（Solidity）实现应收账款拆分流转、自动计息还款，降低人工操作风险，业务处理效率提升 50%</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>集成区块链存证与司法仲裁系统，完成融资全流程上链存证，纠纷取证效率提升 80%</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>技术栈：Hyperledger Fabric、Solidity、Node.js、MySQL ，实现供应链金融 “四流合一”（商流、物流、信息流、资金流 ）</span>
+                </li>
+              </ul>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Vue.js</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Vuex</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Vue Router</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Webpack</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Sass</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Element UI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 项目2 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-1/3 bg-gray-100 p-6 flex items-center justify-center">
+              <img src="https://picsum.photos/600/400?random=3" alt="管理系统项目截图" class="w-full h-auto rounded-lg shadow-sm">
+            </div>
+            <div class="md:w-2/3 p-6">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-primary">区块链政务数据共享平台</h3>
+                  <p class="text-muted">2024年7月 - 2025年2月</p>
+                </div>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">React</span>
+              </div>
+              <p class="mb-4">助力政务部门打破数据孤岛，构建安全可信的跨部门数据共享体系，支撑民生服务与监管协同。</p>
+              <ul class="mb-4 space-y-2">
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>采用联盟链架构（FISCO BCOS ），部署政务云节点，实现户籍、社保、税务等数据加密共享</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>开发权限管理智能合约，基于角色动态控制数据访问权限，满足 “最小必要” 共享原则，数据泄露风险降低 70%</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>对接政务服务平台，通过区块链存证实现办事材料 “一次提交、全域复用”，市民办事材料提交量减少 60%
+</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>技术栈：FISCO BCOS、Java、Spring Cloud ，打造政务数据 “可信交换、全程留痕” 的区块链底座
+</span>
+                </li>
+              </ul>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">React</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Redux</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">React Router</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Ant Design</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Chart.js</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">TypeScript</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 项目3 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-1/3 bg-gray-100 p-6 flex items-center justify-center">
+              <img src="https://picsum.photos/600/400?random=4" alt="移动端应用项目截图" class="w-full h-auto rounded-lg shadow-sm">
+            </div>
+            <div class="md:w-2/3 p-6">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-primary">区块链数字藏品交易平台</h3>
+                  <p class="text-muted">2025年1月 - 2025年6月</p>
+                </div>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Vue.js</span>
+              </div>
+              <p class="mb-4">聚焦文化 IP 数字化，搭建合规可控的数字藏品平台，实现 NFT 铸造、交易、确权全流程上链。</p>
+              <ul class="mb-4 space-y-2">
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>基于以太坊（Ethereum ）生态开发，采用 ERC - 721 标准铸造数字藏品，对接版权登记机构上链存证</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>开发链上智能合约自动化分账系统，支持创作者、IP 方、平台按比例实时分润，结算周期从 T + 7 缩短至 T + 1</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>集成区块链浏览器与反诈系统，实时监测异常交易，平台虚假交易拦截率提升 65%</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                  <span>技术栈：Ethereum、Solidity、React.js、MongoDB ，构建 “文化确权 + 合规交易” 的数字藏品生态</span>
+                </li>
+              </ul>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Vue.js</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Vant UI</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">WebSocket</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Vue CLI</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Less</span>
+                <span class="bg-gray-100 text-muted px-3 py-1 rounded-full text-sm">Axios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section id="education" class="section-padding bg-white/70">
+      <h2 class="section-title">教育背景</h2>
+      
+      <div class="relative">
+        <!-- 时间线 -->
+        <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-primary/20 transform md:-translate-x-1/2"></div>
+        
+        <!-- 教育经历1 -->
+        <div class="relative z-10 mb-8">
+          <div class="md:flex md:justify-between">
+            <div class="md:w-5/12 mb-4 md:mb-0">
+              <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                <h3 class="text-xl font-bold text-primary mb-2">区块链工程</h3>
+                <p class="text-muted mb-3">本科 | 学士学位</p>
+                <p>主修课程：数据结构、算法分析、密码学、区块链开发、数据库原理、编程语言（C、Java、Python）、Web开发等。</p>
+                <div class="mt-4">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">GPA: 3.8/4.0</span>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block md:w-2/12 flex justify-center items-center">
+              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
+                <i class="fa fa-graduation-cap"></i>
+              </div>
+            </div>
+            <div class="md:w-5/12">
+              <div class="flex items-center justify-center h-full">
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                  <h4 class="text-lg font-bold mb-2">三亚学院</h4>
+                  <p class="text-muted">2023年9月 - 2025年6月</p>
+                  <div class="mt-4">
+                    <div class="flex items-center">
+                      <i class="fa fa-trophy text-yellow-500 mr-2"></i>
+                      <span>优秀学生奖学金（2次）</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                      <i class="fa fa-code text-primary mr-2"></i>
+                      <span>参加全国大学生计算机设计竞赛，获得省级二等奖</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 教育经历2 -->
+        <div class="relative z-10">
+          <div class="md:flex md:justify-between">
+            <div class="md:w-5/12 mb-4 md:mb-0 md:order-2">
+              <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                <h3 class="text-xl font-bold text-primary mb-2">Web前端开发专业培训</h3>
+                <p class="text-muted mb-3">职业技能培训</p>
+                <p>系统学习Web前端开发技术，包括HTML5、CSS3、JavaScript、前端框架（Vue.js、React）、前端工程化等内容。</p>
+                <div class="mt-4">
+                  <div class="flex items-center">
+                    <i class="fa fa-certificate text-green-500 mr-2"></i>
+                    <span>完成多个实战项目，获得优秀学员称号</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block md:w-1 flex justify-center items-center">
+              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
+                <i class="fa fa-book"></i>
+              </div>
+            </div>
+
+            <div class="md:w-5/12 md:order-1">
+              <div class="flex items-center justify-center h-full">
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                  <h4 class="text-lg font-bold mb-2">软件开发有限公司实习</h4>
+                  <p class="text-muted">2024年7月 - 2025年12月</p>
+                  <div class="mt-4">
+                    <div class="flex items-center">
+                      <i class="fa fa-check-circle text-primary mr-2"></i>
+                      <span>通过实习工作掌握知识，能够独立开发复杂的前端应用，掌握现代前端开发技术栈。</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section id="contact" class="section-padding">
+      <h2 class="section-title">联系方式</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+            <h3 class="text-xl font-bold text-primary mb-4">联系信息</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                  <i class="fa fa-phone text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">电话</h4>
+                  <p class="text-muted">18187863450</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                  <i class="fa fa-envelope text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">邮箱</h4>
+                  <p class="text-muted">zzy1344001029@gmail.com</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                  <i class="fa fa-map-marker text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">地址</h4>
+                  <p class="text-muted">三亚市吉阳区三亚学院</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                  <i class="fa fa-clock-o text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">工作时间</h4>
+                  <p class="text-muted">周一至周五: 9:00 - 18:00</p>
+                </div>
+              </li>
+            </ul>
+            
+            <div class="mt-8">
+              <h4 class="font-bold text-lg mb-4">社交媒体</h4>
+              <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:bg-[#1877F2]/80 transition-colors">
+                  <i class="fa fa-facebook"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-[#1DA1F2] flex items-center justify-center text-white hover:bg-[#1DA1F2]/80 transition-colors">
+                  <i class="fa fa-twitter"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-[#0A66C2] flex items-center justify-center text-white hover:bg-[#0A66C2]/80 transition-colors">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-[#333] flex items-center justify-center text-white hover:bg-[#333]/80 transition-colors">
+                  <i class="fa fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+            <h3 class="text-xl font-bold text-primary mb-4">发送消息</h3>
+            <form id="contact-form">
+              <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您的姓名">
+              </div>
+              <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您的邮箱">
+              </div>
+              <div class="mb-4">
+                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">主题</label>
+                <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入消息主题">
+              </div>
+              <div class="mb-4">
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">消息</label>
+                <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您的消息内容"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-accent transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-300">
+                发送消息
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h3 class="text-xl font-bold mb-2">张忠洋</h3>
+          <p class="text-white/70">区块链工程师</p>
+        </div>
+        <div class="flex space-x-6 mb-4 md:mb-0">
+          <a href="#" class="text-white/70 hover:text-white transition-colors">
+            <i class="fa fa-github text-xl"></i>
+          </a>
+          <a href="#" class="text-white/70 hover:text-white transition-colors">
+            <i class="fa fa-linkedin text-xl"></i>
+          </a>
+          <a href="#" class="text-white/70 hover:text-white transition-colors">
+            <i class="fa fa-twitter text-xl"></i>
+          </a>
+          <a href="#" class="text-white/70 hover:text-white transition-colors">
+            <i class="fa fa-envelope text-xl"></i>
+          </a>
+        </div>
+        <div>
+          <p class="text-white/70">&copy; 2025 张忠洋. 保留所有权利.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-accent transition-colors transform hover:-translate-y-1 duration-300 opacity-0 invisible">
+    <i class="fa fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3', 'shadow-sm');
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        navbar.classList.add('py-3', 'shadow-sm');
+        navbar.classList.remove('py-2', 'shadow-md');
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    // 移动端菜单切换
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenuButton.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+      } else {
+        mobileMenuButton.innerHTML = '<i class="fa fa-times text-xl"></i>';
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // 关闭移动菜单
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+        }
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 返回顶部按钮
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 表单提交
+    const contactForm = document.getElementById('contact-form');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // 获取表单数据
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // 简单验证
+      if (!name || !email || !subject || !message) {
+        alert('请填写所有字段');
+        return;
+      }
+      
+      // 模拟表单提交
+      alert('感谢您的留言！我会尽快回复您。');
+      contactForm.reset();
+    });
+    
+    // 项目卡片悬停效果
+    const projectCards = document.querySelectorAll('.card-hover');
+    
+    projectCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-5px)';
+        card.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+        card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+      });
+    });
+  </script>
+</body>
+</html>
+    
