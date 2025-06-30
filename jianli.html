@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <!-- 引入AI聊天窗CSS -->
+  <link rel="stylesheet" href="styles/chatbot.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>个人简历</title>
@@ -802,6 +804,17 @@
       });
     });
   </script>
-</body>
+<!-- AI聊天窗HTML结构 -->
+<div id="deepseek-chatbot-container" style="display: none;">
+    <div id="deepseek-chat-content"></div>
+    <div id="deepseek-input-bar">
+        <input type="text" id="deepseek-chat-input" placeholder="输入你的问题..." />
+        <button id="deepseek-send-button">发送</button>
+    </div>
+</div>
+<button id="deepseek-toggle-button">AI</button>
+
+<!-- 引入AI聊天窗JS -->
+<script src="scripts/chatbot.js"></script></body>
 </html>
     
